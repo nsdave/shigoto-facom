@@ -18,12 +18,14 @@ const cats = [
     {
         id: '3',
         name: 'Innovation',
-        color: '#1E90FF'
+        color: '#F0F8FF'
+        // color: '#1E90FF'
     },
     {
         id: '4',
         name: 'Academic',
-        color: '#1E90FF'
+        color: '#F0F8FF'
+        // color: '#1E90FF'
     },
     {
         id: '5',

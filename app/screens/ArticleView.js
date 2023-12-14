@@ -9,6 +9,7 @@ const ArticleView = ({ navigation, route }) => {
 
   const cat = route.params
 
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,

@@ -5,15 +5,15 @@ import { useNavigation } from '@react-navigation/native'
 
 const WIDHT = Dimensions.get('window').width
 
-const data = {
-    "source": "Innovation",
-    "time": "1 hour ago",
-    "image": "https://cdn.pixabay.com/photo/2023/11/14/15/46/nikon-8388022_640.jpg",
-    "preview": "Nikon is a top camera brand that has been producing cameras, lenses, and optical devices for a long time",
-    "body": "The Nikon Z 5 is a great choice if you're looking for a more affordable full-frame camera. It's one of the best entry-level full-frame cameras on the market—though its relatively low price comes with some trade-offs. Most notably, it can only shoot 4k video with a heavy crop, and its burst rate maxes out at about five fps. Still, if you're primarily interested in photography, there's much to love here. ts high-res sensor captures excellent image quality. Like the higher-end Nikon Z 6II, the ergonomics stand out, and the camera is weather-sealed. On top of that, you still get a large high-resolution EVF and IBIS to help you shoot at slower shutter speeds when shooting handheld."
-}
+// const data = {
+//     "source": "Innovation",
+//     "time": "1 hour ago",
+//     "image": "https://cdn.pixabay.com/photo/2023/11/14/15/46/nikon-8388022_640.jpg",
+//     "preview": "Nikon is a top camera brand that has been producing cameras, lenses, and optical devices for a long time",
+//     "body": "The Nikon Z 5 is a great choice if you're looking for a more affordable full-frame camera. It's one of the best entry-level full-frame cameras on the market—though its relatively low price comes with some trade-offs. Most notably, it can only shoot 4k video with a heavy crop, and its burst rate maxes out at about five fps. Still, if you're primarily interested in photography, there's much to love here. ts high-res sensor captures excellent image quality. Like the higher-end Nikon Z 6II, the ergonomics stand out, and the camera is weather-sealed. On top of that, you still get a large high-resolution EVF and IBIS to help you shoot at slower shutter speeds when shooting handheld."
+// }
 
-const NewsCard = () => {
+const NewsCard = ({ data }) => {
     const navigation = useNavigation()
 
     return (
@@ -23,12 +23,12 @@ const NewsCard = () => {
     >
         <Image 
         style={styles.img}
-        source={{ uri: data.image }}
+        source={{ uri: data?.image }}
         />
-      <Text style={styles.txt} >{data.preview}</Text>
-      <Text style={styles.txt2} >{data.source}</Text>
+      <Text style={styles.txt} >{data?.preview}</Text>
+      <Text style={styles.txt2} >{data?.source}</Text>
       <View style={styles.bottom} >
-        <Text style={styles.time} >{data.time}</Text>
+        <Text style={styles.time} >{data?.time}</Text>
         <SimpleLineIcons 
         name='options-vertical' 
         size={16} 

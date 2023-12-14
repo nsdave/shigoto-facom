@@ -1,11 +1,34 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useEffect, useState } from 'react'
 import file from '../../assets/dummy.json'
 import NewsStrip from '../components/NewsStrip'
+import { supabase } from '../utils/supabase'
 
 const CategoryView = ({ navigation, route }) => {
+  const [data, setData] = useState([])
 
     const cat = route.params.page
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const { data: news, error } = await supabase
+            .from('news')
+            .select('*');
+          
+          if (error) {
+            console.error(error);
+            return;
+          }
+  
+          setData(news);
+        } catch (error) {
+          console.error('Error fetching data:', error.message);
+        }
+      };
+
+        fetchData();
+      }, []);
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -14,10 +37,23 @@ const CategoryView = ({ navigation, route }) => {
       })
     })
 
+    const tom = data?.filter(poke => poke.source == cat) 
+
+    function Empty() {
+      return (
+        <View style={{
+          flex: 1, alignItems: 'center',
+          justifyContent: 'center'
+        }} >
+          <Text style={{ marginTop: '40%' }} >No available news</Text>
+        </View>
+      )
+    }
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }} >
       <FlatList
-      data={file}
+      data={tom}
       keyExtractor={poke => poke.id} 
       renderItem={({ item }) => (
         <NewsStrip 
@@ -30,6 +66,7 @@ const CategoryView = ({ navigation, route }) => {
       )}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={ <View style={{ height: 10 }} />}
+      ListEmptyComponent={<Empty />}
       />
     </View>
   )
