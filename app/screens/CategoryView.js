@@ -7,7 +7,8 @@ import { supabase } from '../utils/supabase'
 const CategoryView = ({ navigation, route }) => {
   const [data, setData] = useState([])
 
-    const cat = route.params.page
+    const mouse = route.params.page
+    const cat = mouse.toLowerCase()
 
     useEffect(() => {
       const fetchData = async () => {
@@ -37,7 +38,7 @@ const CategoryView = ({ navigation, route }) => {
       })
     })
 
-    const tom = data?.filter(poke => poke.source == cat) 
+    const tom = data?.filter(poke => poke.source.toLowerCase() == cat) 
 
     function Empty() {
       return (
@@ -60,7 +61,7 @@ const CategoryView = ({ navigation, route }) => {
         image={item.image}
         source={item.source}
         text={item.preview}
-        time={item.time}
+        time={item.created_at}
         tap={() => navigation.navigate('article', item)}
         />
       )}

@@ -12,11 +12,11 @@ import { supabase } from '../utils/supabase'
 const Recent = ({ navigation}) => {
     const [network, setNetwork] = useState(undefined)
     const [data, setData] = useState(null)
-    const [change, setChange] = useState(false)
+    const [change, setChange] = useState(true)
 
     const getNetworkState = async () => {
         const state = await Network.getNetworkStateAsync()
-        setNetwork(JSON.stringify(state.isInternetReachable))
+        setNetwork(JSON.stringify(state.isConnected))
     }
 
     useEffect(() => {
@@ -35,6 +35,7 @@ const Recent = ({ navigation}) => {
         }
 
         setData(news);
+        setChange(false)
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
@@ -66,7 +67,7 @@ const Recent = ({ navigation}) => {
     }
 
     function line(){
-        let all = data?.filter(z => z.id != 1)
+        let all = data?.filter(z => z.id != 1).reverse()
 
         return all
     }
@@ -84,22 +85,20 @@ const Recent = ({ navigation}) => {
                 <FlatList 
                 data={line()}
                 keyExtractor={poke => poke.id}
-                inverted
                 renderItem={({ item }) => (
                     <NewsStrip 
                     image={item.image}
                     text={item.preview}
-                    time={item.time}
+                    time={item.created_at}
                     source={item.source}
                     tap={() => navigation.navigate('article', item)}
                     />
                 )}
                 showsVerticalScrollIndicator={false}
-                ListHeaderComponent={<View style={{ height: 75}} />}
+                ListHeaderComponent={<NewsCard data={jead()} />}
                 onRefresh={() => fetchData()}
                 refreshing={change}
-                ListEmptyComponent={<ActivityIndicator size={'large'} color={'black'} />}
-                ListFooterComponent={<NewsCard data={jead()} />}
+                ListFooterComponent={<View style={{ height: 75}} />}
                 />
             </View>
             :

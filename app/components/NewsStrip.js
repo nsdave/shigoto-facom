@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SimpleLineIcons } from '@expo/vector-icons'
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 const NewsStrip = ({ tap, image, text, time, source }) => {
   return (
@@ -21,7 +24,7 @@ const NewsStrip = ({ tap, image, text, time, source }) => {
       </View>
 
       <View style={styles.bottom} >
-        <Text style={styles.bottomtxt} >{time}</Text>
+        <Text style={styles.bottomtxt} >{dayjs(time).fromNow()}</Text>
         <SimpleLineIcons name='options-vertical' size={14} color={'gray'} />
       </View>
     </TouchableOpacity>

@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 const SIZE = Dimensions.get('window').width
 
@@ -51,7 +54,7 @@ const ArticleView = ({ navigation, route }) => {
         <Text style={styles.tit} >{cat.preview}</Text>
         <View style={styles.txtrow} >
           <Text style={styles.src} >{cat.source}</Text>
-          <Text style={styles.time} >● {cat.time}</Text>
+          <Text style={styles.time} >● {dayjs(cat.created_at).fromNow()}</Text>
         </View>
       </View>
 
